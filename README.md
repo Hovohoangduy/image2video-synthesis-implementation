@@ -1,23 +1,4 @@
-# Stochastic Image-to-Video Synthesis using cINNs
-
-Official PyTorch implementation of Stochastic Image-to-Video Synthesis using cINNs accepted to CVPR2021.
-
-https://user-images.githubusercontent.com/24416143/117287893-2aef6d80-ae6b-11eb-8d6a-f0678426ff58.mp4
-
-## [Arxiv](https://arxiv.org/abs/2105.04551) | [Project Page](https://compvis.github.io/image2video-synthesis-using-cINNs/) | [Supplemental](https://compvis.github.io/image2video-synthesis-using-cINNs/results/222_supp.zip) | [Pretrained Models](https://drive.google.com/drive/folders/12-PccC8jKz4UGpaE9GS0aOi23PHjJLzW?usp=sharing) | [BibTeX](#bibtex)
-[Michael Dorkenwald](https://mdork.github.io/),
-[Timo Milbich](https://timomilbich.github.io/),
-[Andreas Blattmann](https://www.linkedin.com/in/andreas-blattmann-479038186/?originalSubdomain=de),
-[Robin Rombach](https://github.com/pesser),
-[Kosta Derpanis](https://www.cs.ryerson.ca/kosta/)\*,
-[Björn Ommer](https://hci.iwr.uni-heidelberg.de/Staff/bommer)\*,
-[CVPR 2021](http://cvpr2021.thecvf.com/)<br/>
-
-**tl;dr** We present a framework for both stochastic and controlled image-to-video synthesis. We bridge the gap between the image and video domain using conditional invertible neural networks and account for the inherent ambiguity with a learned, dedicated scene dynamics representation.
-
-![teaser](https://compvis.github.io/image2video-synthesis-using-cINNs/paper/method.png)
-
-For any questions, issues, or recommendations, please contact Michael at m.dorkenwald(at)gmail.com. If our project is helpful for your research, please consider [citing](#bibtex).
+# Stochastic Image-to-Video Synthesis Implementation
 # Table of Content
 
 1. [Requirements](#Requirements)
@@ -201,24 +182,3 @@ To train the cINN, we need to specify the location of the trained encoder as wel
 python -W ignore -m stage2_cINN.main -gpu <gpu_id> -cf stage2_cINN/configs/<config>
 ```
 To reproduce the controlled video synthesis experiment, one can specify the `control True` in the `bair_config.yaml` to additional condition the cINN on the endpoint location.
-
-## Shout-outs <a name="shoutouts"></a>
-Thanks to everyone who makes their code and models available. In particular,
-
-- The decoder architecture is inspired by [SPADE](https://github.com/NVlabs/SPADE)
-- The great work and code of Stochastic Latent Residual Video Prediction [SRVP](https://github.com/edouardelasalles/srvp)
-- The 3D encoder and discriminator are based on [3D-Resnet](https://github.com/tomrunia/PyTorchConv3D) and spatial discriminator is adapted from [PatchGAN](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
-- The metrics which were used [LPIPS](https://github.com/richzhang/PerceptualSimilarity) [PyTorch FID](https://github.com/mseitzer/pytorch-fid) [FVD](https://github.com/google-research/google-research/tree/master/frechet_video_distance)
-
-## BibTeX
-
-```
-@InProceedings{Dorkenwald_2021_CVPR,
-    author    = {Dorkenwald, Michael and Milbich, Timo and Blattmann, Andreas and Rombach, Robin and Derpanis, Konstantinos G. and Ommer, Bjorn},
-    title     = {Stochastic Image-to-Video Synthesis Using cINNs},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2021},
-    pages     = {3742-3753}
-}
-```

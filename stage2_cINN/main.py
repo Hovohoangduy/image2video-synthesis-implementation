@@ -180,7 +180,7 @@ def main(opt):
 
         ## Save checkpoints
         if PFVD < best_PFVD:
-            torch.save(save_dict, save_path + '/checkpoint_best_val.pth')
+            torch.save(network.state_dict(), save_path + '/checkpoint_best_val.pth')
             best_PFVD = PFVD
 
         ###### Logging Epoch Data
