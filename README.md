@@ -17,8 +17,6 @@ Python version 3.10
 
 ```
 pip install -r requirements.txt
-conda env create -f environment.yaml
-conda activate i2v
 ```
 For this repository cuda verion 11.1 is used. To suppress the annoying warnings from kornia please run all python scripts with `-W ignore`.
 ## Running pretrained models <a name="pretrained_models"></a>
