@@ -10,14 +10,13 @@
 5. [Training](#training)
     1. [Stage1: Video-to-Video synthesis](#stage1)
     2. [Stage2: cINN for Image-to-Video synthesis](#stage2)
-6. [Shout-outs](#shoutouts)
-7. [BibTeX](#bibtex)
 
 
 ## Requirements <a name="Requirements"></a>
-A suitable [conda](https://conda.io/) environment named `i2v` can be created and activated with
+Python version 3.10
 
 ```
+pip install -r requirements.txt
 conda env create -f environment.yaml
 conda activate i2v
 ```
