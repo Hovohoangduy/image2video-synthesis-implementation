@@ -33,12 +33,19 @@ model = Model(ckpt_path, args.seq_length)
 
 ## Load images
 img_res = model.config.Data['img_size']
-resize = k.Resize(size=(img_res, img_res))
-normalize = k.augmentation.Normalize(0.5, 0.5)
+normalize =k.augmentation.Normalize(0.5, 0.5)
 
-imgs = [resize(normalize(k.image_to_tensor(cv2.cvtColor(cv2.imread(name), cv2.COLOR_BGR2RGB))/255.0))
-        for name in img_list]
-imgs = torch.cat(imgs)
+imgs = []
+for name in img_list:
+    img = cv2.imread(name)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = cv2.resize(img, (img_res, img_res))
+    tensor = k.image_to_tensor(img) / 255.0 
+    tensor = tensor.unsqueeze(0)       
+    tensor = normalize(tensor) 
+    imgs.append(tensor)
+
+imgs = torch.cat(imgs, dim=0) 
 
 ## Generate videos
 bs = args.bs
@@ -59,5 +66,5 @@ videos = torch.cat(videos)
 save_path = f'./assets/results/{path_ds}/'
 os.makedirs(os.path.dirname(save_path), exist_ok=True)
 gif = aux.convert_seq2gif(videos)
-imageio.mimsave(save_path + f'results.gif', gif.astype(np.uint8), fps=3)
+imageio.mimsave(save_path + f'results.gif', gif.astype(np.uint8), fps=1)
 print(f'Animations saved in {save_path}')
