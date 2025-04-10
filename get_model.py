@@ -27,7 +27,7 @@ class Model(torch.nn.Module):
         if transfer:
             self.encoder = Encoder(dic=config.Encoder).cuda()
             self.encoder.load_state_dict(torch.load(path_stage1 + opt.First_stage_model['checkpoint_encoder'] +
-                                                    '.pth.tar')['state_dict'])
+                                                    '.pth')['state_dict'])
             _ = self.encoder.eval()
 
         ## Load cINN

@@ -38,10 +38,21 @@ for vidp in video_paths:
         img_list.extend(glob.glob(img_path + vidp + '/' + f'*.{suffix}'))
 
     img_list = natsorted(img_list)[:args.seq_length]
-    resize = k.Resize(size=(img_res, img_res))
+    seq = []
+    for name in img_list:
+        img = cv2.imread(name)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = cv2.resize(img, (img_res, img_res))
+        tensor = k.image_to_tensor(img) / 255.0
+        seq.append(tensor)
+    seq_tensor = torch.stack(seq)
     normalize = k.augmentation.Normalize(0.5, 0.5)
-    seq = [k.image_to_tensor(cv2.cvtColor(cv2.imread(name), cv2.COLOR_BGR2RGB))/255.0 for name in img_list]
-    videos.append(resize(normalize(torch.stack(seq))))
+    seq_tensor = normalize(seq_tensor)
+    videos.append(seq_tensor)
+
+    # resize = cv2.resize(size=(img_res, img_res))
+    # seq = [k.image_to_tensor(cv2.cvtColor(cv2.imread(name), cv2.COLOR_BGR2RGB))/255.0 for name in img_list]
+    # videos.append(resize(normalize(torch.stack(seq))))
 
 videos = torch.stack(videos)
 
@@ -65,4 +76,4 @@ for idx, query in enumerate(videos):
     ## Save video as gif
     transfer = torch.cat((query[None, :], transfer), dim=0)
     gif = aux.convert_seq2gif(transfer)
-    imageio.mimsave(save_path + f'transfer_{idx}.gif', gif.astype(np.uint8), fps=3)
+    imageio.mimsave(save_path + f'transfer_{idx}.gif', gif.astype(np.uint8), fps=1)
